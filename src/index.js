@@ -10,8 +10,26 @@ async function getData(cityname, units) {
     console.log(weatherData.main)
     console.log(weatherData.weather[0]['main'])
     console.log(weatherData.wind)
+    renderData(weatherData)
 }
 
-getData("San-Antonio", "imperial").catch(err => {
+
+
+ function renderData(data) {
+      const name = document.querySelector('.name')
+      name.textContent = data.name
+
+      const currentWeather = document.querySelector('.current-weather')
+      currentWeather.textContent = data.weather[0]['main']
+
+      const maxTemp = document.querySelector('#maxTemp')
+      maxTemp.textContent = `H:${Math.round(data.main['temp_max'])}\xB0`
+
+      const minTemp = document.querySelector('#minTemp')
+      minTemp.textContent = `L:${Math.round(data.main['temp_min'])}\xB0`
+
+  }
+
+  getData("San-Antonio", "imperial").catch(err => {
     console.log(err)
   })
