@@ -1,0 +1,31 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "Weather app for the odin project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "start": "webpack serve --open",
+    "build": "webpack",
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZandBraxton/Weather-App.git"
+  },
+  "author": "Zand Braxton",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZandBraxton/Weather-App/issues"
+  },
+  "homepage": "https://github.com/ZandBraxton/Weather-App#readme",
+  "devDependencies": {
+    "css-loader": "^6.2.0",
+    "gh-pages": "^3.2.3",
+    "style-loader": "^3.2.1",
+    "webpack": "^5.52.1",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.2.0"
+  }
+}
