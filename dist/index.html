@@ -5,18 +5,23 @@
         <meta charset="UTF-8">
     </head>
     <body>
-        <form class="search">
-            <input type="text" placeholder="Search">
-            <button id="submit" type="submit">Submit</button>
-         </form>
-         <div>
-            <h1 class="name"></h1>
+        <nav>
+            <form class="search">
+                <input type="text" placeholder="Enter a City">
+                <button id="submit" type="submit">Search</button>
+            </form>
+         </nav>
+         <div class="weather-header">
+            <p class="name"></p>
             <p class="current-weather"></p>
             <p class="temp"></p>
-            <p id="maxTemp" class="min-max"></p>
-            <p id="minTemp" class="min-max"></p>
+            <div class=min-max-container>
+                <p id="maxTemp" class="min-max"></p>
+                <p id="minTemp" class="min-max"></p>
+            </div>
+            
         </div>
-        <div>
+        <div class="weather-stats">
             <p id="sunrise"class="weather-info">Hello</p>
             <p id="sunset"class="weather-info">Hello</p>
             <p id="humidity"class="weather-info">Hello</p>
