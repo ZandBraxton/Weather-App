@@ -37,6 +37,7 @@ async function getData(location) {
     renderCityName(location.name)
     renderHeaderData(weatherData)
     renderMainData(weatherData)
+    renderHourly(weatherData)
 }
 
 function changeMeasurement() {
@@ -123,6 +124,73 @@ function renderMainData(data) {
     uvIndex.textContent = `UV Index: ${data.current.uvi}`
 
 }
+
+function renderHourly(data) {
+    const container = document.querySelector('.weather-hourly')
+    let h = getTime()
+    let period = ''
+    if (h >= 0 && h <= 11) {
+        period = "am"
+    } else {
+        period = "pm"
+    }
+    let currentHour =  h % 12 || 12
+
+    for (let i = 0; i < 24; i++) {
+        let cell = document.createElement('div')
+        let time = document.createElement('p')
+        if (currentHour === 12) {
+            currentHour = 0
+            if (period === "pm") {
+                period = "am"
+            } else {
+                period = "pm"
+            }
+        }
+        if(i === 0) {
+            time.textContent = "Now"
+        } else {
+            currentHour += 1
+            time.textContent = `${currentHour}${period}`
+        }
+        time.classList = "hourly-time"
+        cell.appendChild(time)
+        appendIcon(data, i, cell)
+        appendTemp(data, i, cell)
+
+
+
+        container.appendChild(cell)
+    }
+}
+
+function getTime() {
+    let time = new Date()
+    let h = time.getHours()
+    return h
+}
+
+function appendIcon(data, i, cell) {
+    let icon = document.createElement('img')
+    icon.src = `https://openweathermap.org/img/wn/${data.hourly[i].weather[0].icon}@2x.png`
+    icon.alt = `${data.hourly[i].weather[0].description}`
+    icon.classList.add('hourly-icon')
+    cell.appendChild(icon)
+}
+
+function appendTemp(data, i, cell) {
+    let temp = document.createElement('p')
+    temp.textContent = `${Math.round(data.hourly[i].temp)}\xB0`
+    temp.classList.add('hourly-temp')
+    cell.appendChild(temp)
+}
+
+
+
+
+//0-11 AM
+//12-23pm
+
 
 getLocation(cityname, units).catch(err => {
 console.log(err)

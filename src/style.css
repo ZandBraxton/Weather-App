@@ -95,6 +95,30 @@ nav {
 
 .weather-stats {
     display: grid;
-    grid-template-columns: repeat(2, 300px);
+    grid-template-columns: repeat(2, 15em);
     margin-top: 32px;
+}
+
+.weather-hourly {
+    width: 100%;
+    height: 11em;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(24, 100px);
+    text-align: center;
+    background-color: rgb(164, 214, 231);
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.hourly-time {
+    margin-bottom: 0;
+}
+
+.hourly-icon {
+
+}
+
+.hourly-temp {
+    margin-top: 0;
 }
