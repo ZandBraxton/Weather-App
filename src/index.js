@@ -2,13 +2,20 @@ import './style.css';
 
 // `api.openweathermap.org/data/2.5/weather?q=${cityname}&APPID=8da6e4702fef427379c1ed0387c3fc89`
 let units = "imperial"
+let cityname = "New York"
+
+const changeTemp = document.querySelector('.temp-measurement')
+changeTemp.addEventListener('click', () => {
+    changeMeasurement()
+})
 
 
 
 const search = document.querySelector('.search')
 search.addEventListener('submit', (e) => {
     e.preventDefault()
-    getLocation(search.elements[0].value, units)
+    cityname = search.elements[0].value
+    getLocation(cityname, units)
 })
 
 
@@ -30,6 +37,17 @@ async function getData(location) {
     renderCityName(location.name)
     renderHeaderData(weatherData)
     renderMainData(weatherData)
+}
+
+function changeMeasurement() {
+    if (units === "imperial") {
+        units = "metric"
+        changeTemp.textContent = "C\xB0"
+    } else {
+        units = "imperial"
+        changeTemp.textContent = "F\xB0"
+    }
+    getLocation(cityname, units)
 }
 
 
@@ -87,7 +105,13 @@ function renderMainData(data) {
     percipitation.textContent = data.daily[0].rain ? `Percipitation: ${data.daily[0].rain} in` : 'Percipitation: 0 in'
 
     const windspeed = document.querySelector('#windspeed')
-    windspeed.textContent = `Wind: ${data.current.wind_speed} mph`
+    let measurement = ''
+    if (units === "imperial") {
+        measurement = 'mph'
+    } else {
+        measurement = 'mps'
+    }
+    windspeed.textContent = `Wind: ${data.current.wind_speed} ${measurement}`
 
     const pressure = document.querySelector('#pressure')
     pressure.textContent = `Pressure: ${data.current.pressure} hPa`
@@ -100,7 +124,7 @@ function renderMainData(data) {
 
 }
 
-getLocation("San-Antonio", units).catch(err => {
+getLocation(cityname, units).catch(err => {
 console.log(err)
 })
 
