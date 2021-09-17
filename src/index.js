@@ -136,8 +136,25 @@ export {
     appendHourlyTemp,
     appendDailyIcon,
     appendDailyTemp
-
 }
+
+const el = document.querySelector('.weather-hourly')
+
+let x = 0, left = 0;
+
+let draggingFunction = (e) => {
+    document.addEventListener('mouseup', () => {
+        document.removeEventListener("mousemove", draggingFunction);
+    });
+    el.scrollLeft = left - e.pageX + x;
+};
+
+el.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    x = e.pageX;
+    left = el.scrollLeft;
+    document.addEventListener('mousemove', draggingFunction);
+});
 
 getLocation(cityname, units).catch(err => {
 console.log(err)

@@ -90,6 +90,9 @@ function renderMainData(data, units) {
 
 function renderHourly(data) {
     const container = document.querySelector('.weather-hourly')
+    container.addEventListener('mousewheel', () => {
+        container.scrollBy()
+    })
     while (container.firstChild) {
         container.removeChild(container.lastChild)
     }
@@ -107,14 +110,17 @@ function renderHourly(data) {
         cell.classList.add('hourly-cell')
 
         let time = document.createElement('p')
-        if (currentHour === 12) {
+        if (i !== 0) {
+            if (currentHour === 12) {
             currentHour = 0
             if (period === "pm") {
                 period = "am"
             } else {
                 period = "pm"
             }
+            }
         }
+       
         if(i === 0) {
             time.textContent = "Now"
         } else {

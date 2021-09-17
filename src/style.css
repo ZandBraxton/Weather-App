@@ -1,5 +1,7 @@
 body {
     margin: 0;
+   
+    font-family: sans-serif;
 }
 
 html {
@@ -106,13 +108,20 @@ nav {
     display: grid;
     grid-template-columns: repeat(24, 100px);
     text-align: center;
-    background-color: rgb(164, 214, 231);
+    background-color: #66bbdd;
     overflow-x: scroll;
     overflow-y: hidden;
+    outline: 1px solid black;
+    scrollbar-width: none;
+    cursor: grab;
 }
 
+.weather-hourly::-webkit-scrollbar {
+display: none;
+
+}
 .hourly-cell {
-    outline: 1px solid black;
+    /* outline: 1px solid black; */
 }
 
 .hourly-time {
@@ -134,9 +143,10 @@ nav {
     height: 20em;
     display: grid;
     grid-template-columns: repeat(7, 250px);
-    text-align: center
+    text-align: center;
+    margin: 1em 0 0 0;
 }
 
 .daily-day {
-    
+
 }
