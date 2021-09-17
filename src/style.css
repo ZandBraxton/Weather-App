@@ -102,13 +102,17 @@ nav {
 .weather-hourly {
     width: 100%;
     height: 11em;
-    margin-top: 20px;
+    margin: 20px auto 0 auto;
     display: grid;
     grid-template-columns: repeat(24, 100px);
     text-align: center;
     background-color: rgb(164, 214, 231);
-    overflow-x: auto;
+    overflow-x: scroll;
     overflow-y: hidden;
+}
+
+.hourly-cell {
+    outline: 1px solid black;
 }
 
 .hourly-time {
@@ -121,4 +125,18 @@ nav {
 
 .hourly-temp {
     margin-top: 0;
+}
+
+.weather-daily {
+    background-color: turquoise;
+    outline: 1px solid red;
+    width: 100%;
+    height: 20em;
+    display: grid;
+    grid-template-columns: repeat(7, 250px);
+    text-align: center
+}
+
+.daily-day {
+    
 }

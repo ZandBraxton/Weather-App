@@ -1,4 +1,5 @@
 import './style.css';
+import {renderData} from './render'
 
 // `api.openweathermap.org/data/2.5/weather?q=${cityname}&APPID=8da6e4702fef427379c1ed0387c3fc89`
 let units = "imperial"
@@ -34,10 +35,7 @@ async function getData(location) {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${location.coord['lat']}&lon=${location.coord['lon']}&units=${units}&appid=8da6e4702fef427379c1ed0387c3fc89`, {mode: 'cors'})
     const weatherData = await response.json()
     console.log(weatherData)
-    renderCityName(location.name)
-    renderHeaderData(weatherData)
-    renderMainData(weatherData)
-    renderHourly(weatherData)
+    renderData(location, weatherData, units)
 }
 
 function changeMeasurement() {
@@ -51,126 +49,47 @@ function changeMeasurement() {
     getLocation(cityname, units)
 }
 
-
-
-function renderCityName(locationname) {
-    const name = document.querySelector('.name')
-    name.textContent = locationname
-}
-
-function renderHeaderData(data) {
-    const currentWeather = document.querySelector('.current-weather')
-    currentWeather.textContent = data.current.weather[0]['main']
-
-    const temp = document.querySelector('.temp')
-    temp.textContent = `${Math.round(data.current['temp'])}\xB0`
-
-    const maxTemp = document.querySelector('#maxTemp')
-    maxTemp.textContent = `H:${Math.round(data.daily[0].temp['max'])}\xB0`
-
-    const minTemp = document.querySelector('#minTemp')
-    minTemp.textContent = `L:${Math.round(data.daily[0].temp['min'])}\xB0`
-}
-
-function renderMainData(data) {
-
-    const sunrise = document.querySelector('#sunrise')
-    let sunriseTime = new Date(data.current.sunrise *1000)
-    console.log(sunriseTime)
-    let sunriseHour = sunriseTime.getHours() % 12 || 12
-    let sunriseMinutes = sunriseTime.getMinutes()
-    if (sunriseMinutes < 10) {
-        sunriseMinutes = "0" + sunriseMinutes
-    }
-    sunrise.textContent = `Sunrise: ${sunriseHour}:${sunriseMinutes}AM`
-
-    const sunset = document.querySelector('#sunset')
-    let sunsetTime = new Date(data.current.sunset *1000)
-    let sunsetHour = sunsetTime.getHours() % 12 || 12
-    let sunsetMinutes = sunsetTime.getMinutes()
-    if (sunsetMinutes < 10) {
-        sunsetMinutes = "0" + sunsetMinutes
-    }
-    sunset.textContent = `Sunset: ${sunsetHour}:${sunsetMinutes}PM`
-
-    const humidity = document.querySelector('#humidity')
-    humidity.textContent = `Humidity: ${data.current.humidity}%`
-
-    const feelsLike = document.querySelector('#feels-like')
-    feelsLike.textContent = `Feels Like: ${Math.round(data.current.feels_like)}\xB0`
-
-    const pop = document.querySelector('#pop')
-    pop.textContent = `Chance of Rain: ${data.hourly[0].pop}%`
-
-    const percipitation = document.querySelector('#percipitation')
-    percipitation.textContent = data.daily[0].rain ? `Percipitation: ${data.daily[0].rain} in` : 'Percipitation: 0 in'
-
-    const windspeed = document.querySelector('#windspeed')
-    let measurement = ''
-    if (units === "imperial") {
-        measurement = 'mph'
-    } else {
-        measurement = 'mps'
-    }
-    windspeed.textContent = `Wind: ${data.current.wind_speed} ${measurement}`
-
-    const pressure = document.querySelector('#pressure')
-    pressure.textContent = `Pressure: ${data.current.pressure} hPa`
-
-    const visibility = document.querySelector('#visibility')
-    visibility.textContent = ` Visibility: ${data.current.visibility} meters`
-
-    const uvIndex = document.querySelector('#uv-index')
-    uvIndex.textContent = `UV Index: ${data.current.uvi}`
-
-}
-
-function renderHourly(data) {
-    const container = document.querySelector('.weather-hourly')
-    let h = getTime()
-    let period = ''
-    if (h >= 0 && h <= 11) {
-        period = "am"
-    } else {
-        period = "pm"
-    }
-    let currentHour =  h % 12 || 12
-
-    for (let i = 0; i < 24; i++) {
-        let cell = document.createElement('div')
-        let time = document.createElement('p')
-        if (currentHour === 12) {
-            currentHour = 0
-            if (period === "pm") {
-                period = "am"
-            } else {
-                period = "pm"
-            }
-        }
-        if(i === 0) {
-            time.textContent = "Now"
-        } else {
-            currentHour += 1
-            time.textContent = `${currentHour}${period}`
-        }
-        time.classList = "hourly-time"
-        cell.appendChild(time)
-        appendIcon(data, i, cell)
-        appendTemp(data, i, cell)
-
-
-
-        container.appendChild(cell)
-    }
-}
-
-function getTime() {
+function getHour() {
     let time = new Date()
     let h = time.getHours()
     return h
 }
 
-function appendIcon(data, i, cell) {
+function getDay() {
+    let time = new Date()
+    let day = time.getDay()
+    return day
+}
+
+function getDayName(day) {
+    let result = ''
+    switch(day) {
+        case 0:
+            result = "Sunday";
+            break;
+        case 1:
+            result = "Monday";
+            break;
+        case 2:
+            result = "Tuesday";
+            break;
+        case 3:
+            result = "Wednesday";
+            break;
+        case 4:
+            result = "Thursday";
+            break;
+        case 5:
+            result = "Friday";
+            break;
+        case 6:
+            result = "Saturday";
+            break;   
+    }
+    return result
+}
+
+function appendHourlyIcon(data, i, cell) {
     let icon = document.createElement('img')
     icon.src = `https://openweathermap.org/img/wn/${data.hourly[i].weather[0].icon}@2x.png`
     icon.alt = `${data.hourly[i].weather[0].description}`
@@ -178,19 +97,47 @@ function appendIcon(data, i, cell) {
     cell.appendChild(icon)
 }
 
-function appendTemp(data, i, cell) {
+function appendHourlyTemp(data, i, cell) {
     let temp = document.createElement('p')
     temp.textContent = `${Math.round(data.hourly[i].temp)}\xB0`
     temp.classList.add('hourly-temp')
     cell.appendChild(temp)
 }
 
+function appendDailyIcon(data, i, cell) {
+    let icon = document.createElement('img')
+    icon.src = `https://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}@2x.png`
+    icon.alt = `${data.daily[i].weather[0].description}`
+    icon.classList.add('daily-icon')
+    cell.appendChild(icon)
+}
 
+function appendDailyTemp(data, i, cell) {
+    let tempContainer = document.createElement('div')
+    tempContainer.classList.add('daily-temp-container')
+    let tempH = document.createElement('p')
+    tempH.classList.add('daily-tempH')
+    tempH.textContent = `H:${Math.round(data.daily[i].temp['max'])}\xB0`
 
+    let tempL = document.createElement('p')
+    tempL.classList.add('daily-tempL')
+    tempL.textContent = `L:${Math.round(data.daily[i].temp['min'])}\xB0`
 
-//0-11 AM
-//12-23pm
+    tempContainer.appendChild(tempH)
+    tempContainer.appendChild(tempL)
+    cell.appendChild(tempContainer)
+}
 
+export {
+    getHour,
+    getDay,
+    getDayName,
+    appendHourlyIcon,
+    appendHourlyTemp,
+    appendDailyIcon,
+    appendDailyTemp
+
+}
 
 getLocation(cityname, units).catch(err => {
 console.log(err)
