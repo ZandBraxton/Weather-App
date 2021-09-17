@@ -90,9 +90,6 @@ function renderMainData(data, units) {
 
 function renderHourly(data) {
     const container = document.querySelector('.weather-hourly')
-    container.addEventListener('mousewheel', () => {
-        container.scrollBy()
-    })
     while (container.firstChild) {
         container.removeChild(container.lastChild)
     }

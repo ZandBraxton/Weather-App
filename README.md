@@ -29,13 +29,11 @@ Display icon somewhere in weather header stuff ^^^^
     temp
 } -->
 
-display 7 day forecast {
+<!-- display 7 day forecast {
     render day name
     render weather icon
-    render humidity (maybe)
-    render chance of rain
     render high and low temp
-}
+} -->
 
 <!-- style as grid 
 Sunrise ----- Sunset

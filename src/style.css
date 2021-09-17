@@ -1,6 +1,8 @@
 body {
     margin: 0;
-   
+    background-color: #244c8c;
+    color: #FFF;
+    text-shadow: 1px 1px rgb(33, 33, 33);
     font-family: sans-serif;
 }
 
@@ -57,6 +59,7 @@ nav {
     display: flex;
     flex-flow: row;
     justify-content: space-between;
+    /* background-color: #66bbdd; */
 }
 
 .weather-header {
@@ -70,6 +73,7 @@ nav {
     font-size: 32px;
     margin-bottom: 0;
     padding-left: 20px;
+    
 }
 
 .current-weather {
