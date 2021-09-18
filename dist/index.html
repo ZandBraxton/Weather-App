@@ -6,8 +6,9 @@
     </head>
     <body>
         <nav>
-            <form class="search">
-                <input type="text" placeholder="Enter a City">
+            <form class="search" autocomplete="off">
+                <input type="text" placeholder="Enter a City" value="" required>
+                <span class="validity">Please enter a valid city!</span>
                 <button id="submit" type="submit">Search</button>
             </form>
             <button class="temp-measurement">F&deg</button>

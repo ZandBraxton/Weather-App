@@ -12,6 +12,7 @@ html {
 
 *, *::before, *::after {
     box-sizing: inherit;
+    
 }
 
 nav {
@@ -21,6 +22,16 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+}
+
+.validity {
+    position: absolute;
+    bottom: 0;
+    left: 30em;
+    background-color: rgb(131, 34, 34);
+    padding: 0.2em;
+    opacity: 0;
 }
 
 .search {
@@ -40,10 +51,15 @@ nav {
     margin-right: auto;
     width: 100px;
     font-size: 24px;
-    background-color: coral;
+    background-color: #ff7f50;
     border: none;
     border-radius: 5px;
     outline: 1px solid black;
+}
+
+.search button:hover {
+    background-color: #fd9d7a;
+    cursor: pointer;
 }
 
 .temp-measurement {
@@ -54,11 +70,17 @@ nav {
     font-size: 24px;
 }
 
+.temp-measurement:hover {
+    cursor: pointer;
+    outline: none;
+    background-color: white;
+    border-radius: inherit;
+}
+
 .weather-container {
     display: flex;
     flex-flow: row;
     justify-content: space-between;
-    /* background-color: #66bbdd; */
 }
 
 .weather-header {
@@ -68,7 +90,12 @@ nav {
     display: flex;
     flex-flow: column;
     align-items: center;
-    background-color: rgba(133, 148, 171, 0.32);
+    background-color: rgba(133, 148, 171, 0.2);
+    transition: all 0.3s;
+}
+
+.weather-header:hover {
+    background-color: rgba(133, 148, 171, 0.3);
 }
 
 .name {
@@ -119,7 +146,12 @@ nav {
     grid-column-gap: 5em;
     font-size: 1.2rem;
     margin: 0.5em 1em 0 0;
-    background-color: rgba(133, 148, 171, 0.32);
+    background-color: rgba(133, 148, 171, 0.2);
+    transition: all 0.3s;
+}
+
+.weather-stats:hover {
+    background-color: rgba(133, 148, 171, 0.3);
 }
 
 .weather-info {
@@ -141,28 +173,28 @@ nav {
     display: grid;
     grid-template-columns: repeat(24, 100px);
     text-align: center;
-    background-color: rgba(133, 148, 171, 0.32);
+    background-color: rgba(133, 148, 171, 0.1);
     overflow-x: scroll;
     overflow-y: hidden;
     scrollbar-width: none;
     cursor: grab;
     outline: 1px solid rgba(255, 255, 255, 0.56);
+    transition: all 0.3s;
+}
+
+.weather-hourly:hover {
+    height: 12em;
+    padding-top: 0.5em;
+    outline: 1px solid rgb(255, 255, 255);
+    background-color: rgba(133, 148, 171, 0.3);
 }
 
 .weather-hourly::-webkit-scrollbar {
 display: none;
-
-}
-.hourly-cell {
-
 }
 
 .hourly-time {
     margin-bottom: 0;
-}
-
-.hourly-icon {
-
 }
 
 .hourly-temp {
@@ -176,7 +208,6 @@ display: none;
     grid-template-columns: repeat(7, 250px);
     text-align: center;
     margin: 2em 2em 2em 1em;
-    
 }
 
 .daily-cell {
@@ -185,15 +216,14 @@ display: none;
     height: 300px;
     justify-content: center;
     align-items: center;
-    background-color: rgba(133, 148, 171, 0.32);
+    background-color: rgba(133, 148, 171, 0.1);
     margin-right: 1em;
     transition: all 0.3s;
-
 }
 
 .daily-cell:hover {
     transform: scale(1.05, 1.05);
-    outline: 1px solid rgb(255, 255, 255);
+    background-color: rgba(133, 148, 171, 0.3);
 }
 
 .daily-day {

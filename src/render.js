@@ -40,12 +40,14 @@ function renderHeaderData(data) {
     currentIcon.alt = `${data.current.weather[0].description}`
 
     const currentDesc = document.querySelector('.current-desc')
-    currentDesc.textContent = `Today: ${data.current.weather[0].description} currently.`
+    const desc = data.current.weather[0].description
+    const capitalDesc = desc.charAt(0).toUpperCase() + desc.slice(1)
+    currentDesc.textContent = `Today: ${capitalDesc} currently.`
 }
 
 function renderMainData(data, units) {
-
     const sunrise = document.querySelector('#sunrise')
+    //convert from utc time to 12hr clock
     let sunriseTime = new Date(data.current.sunrise *1000)
     let sunriseHour = sunriseTime.getHours() % 12 || 12
     let sunriseMinutes = sunriseTime.getMinutes()
@@ -73,6 +75,7 @@ function renderMainData(data, units) {
     pop.textContent = `${data.hourly[0].pop}%`
 
     const percipitation = document.querySelector('#percipitation')
+    //sometimes percipitation value isn't added to the response
     percipitation.textContent = data.daily[0].rain ? `${data.daily[0].rain} in` : '0 in'
 
     const windspeed = document.querySelector('#windspeed')
@@ -100,6 +103,7 @@ function renderHourly(data) {
     while (container.firstChild) {
         container.removeChild(container.lastChild)
     }
+    //math to convert to a 24 hour period in local time
     let h = getHour()
     let period = ''
     if (h >= 0 && h <= 11) {

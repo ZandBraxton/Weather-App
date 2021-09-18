@@ -1,16 +1,14 @@
 import './style.css';
 import {renderData} from './render'
 
-// `api.openweathermap.org/data/2.5/weather?q=${cityname}&APPID=8da6e4702fef427379c1ed0387c3fc89`
+//default init
 let units = "imperial"
-let cityname = "New York"
+let cityname = ""
 
 const changeTemp = document.querySelector('.temp-measurement')
 changeTemp.addEventListener('click', () => {
     changeMeasurement()
 })
-
-
 
 const search = document.querySelector('.search')
 search.addEventListener('submit', (e) => {
@@ -19,14 +17,15 @@ search.addEventListener('submit', (e) => {
     getLocation(cityname, units)
 })
 
-
-
-async function getLocation(cityname) {
+async function getLocation(cityname, units) {
+    const validityCheck = document.querySelector('.validity')
     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityname}&units=${units}&APPID=8da6e4702fef427379c1ed0387c3fc89`, {mode: 'cors'})
-    if (response.status == 404) {
-        //throw some error here for user to see they didn't put a city name
+    //check to make sure valid response
+    if (response.status === 404 || response.status === 400) {
+        validityCheck.setAttribute("style", "opacity: 1")
         return;
     }
+    validityCheck.setAttribute("style", "opacity: 0")
     const weatherLocation = await response.json()
     getData(weatherLocation)
 }
@@ -34,7 +33,6 @@ async function getLocation(cityname) {
 async function getData(location) {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${location.coord['lat']}&lon=${location.coord['lon']}&units=${units}&appid=8da6e4702fef427379c1ed0387c3fc89`, {mode: 'cors'})
     const weatherData = await response.json()
-    console.log(weatherData)
     renderData(location, weatherData, units)
 }
 
@@ -149,9 +147,7 @@ el.addEventListener('mousedown', (e) => {
 });
 
 //init page
-getLocation(cityname, units).catch(err => {
-console.log(err)
-})
+getLocation("New York", units)
 
 
 export {
@@ -163,4 +159,3 @@ export {
     appendDailyIcon,
     appendDailyTemp
 }
-//   https://api.openweathermap.org/data/2.5/onecall?lat=29.4241&lon=-98.4936&exclude=minutely&units=imperial&appid=8da6e4702fef427379c1ed0387c3fc89
