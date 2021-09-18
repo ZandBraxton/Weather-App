@@ -58,6 +58,9 @@ function getHour() {
 function getDay() {
     let time = new Date()
     let day = time.getDay()
+    if (day === 6) {
+        day = 0
+    }
     return day
 }
 

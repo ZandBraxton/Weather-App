@@ -52,7 +52,7 @@ function renderMainData(data, units) {
     if (sunriseMinutes < 10) {
         sunriseMinutes = "0" + sunriseMinutes
     }
-    sunrise.textContent = `Sunrise: ${sunriseHour}:${sunriseMinutes}AM`
+    sunrise.textContent = `${sunriseHour}:${sunriseMinutes}AM`
 
     const sunset = document.querySelector('#sunset')
     let sunsetTime = new Date(data.current.sunset *1000)
@@ -61,19 +61,19 @@ function renderMainData(data, units) {
     if (sunsetMinutes < 10) {
         sunsetMinutes = "0" + sunsetMinutes
     }
-    sunset.textContent = `Sunset: ${sunsetHour}:${sunsetMinutes}PM`
+    sunset.textContent = `${sunsetHour}:${sunsetMinutes}PM`
 
     const humidity = document.querySelector('#humidity')
-    humidity.textContent = `Humidity: ${data.current.humidity}%`
+    humidity.textContent = `${data.current.humidity}%`
 
     const feelsLike = document.querySelector('#feels-like')
-    feelsLike.textContent = `Feels Like: ${Math.round(data.current.feels_like)}\xB0`
+    feelsLike.textContent = `${Math.round(data.current.feels_like)}\xB0`
 
     const pop = document.querySelector('#pop')
-    pop.textContent = `Chance of Rain: ${data.hourly[0].pop}%`
+    pop.textContent = `${data.hourly[0].pop}%`
 
     const percipitation = document.querySelector('#percipitation')
-    percipitation.textContent = data.daily[0].rain ? `Percipitation: ${data.daily[0].rain} in` : 'Percipitation: 0 in'
+    percipitation.textContent = data.daily[0].rain ? `${data.daily[0].rain} in` : '0 in'
 
     const windspeed = document.querySelector('#windspeed')
     let measurement = ''
@@ -82,16 +82,16 @@ function renderMainData(data, units) {
     } else {
         measurement = 'mps'
     }
-    windspeed.textContent = `Wind: ${data.current.wind_speed} ${measurement}`
+    windspeed.textContent = `${data.current.wind_speed} ${measurement}`
 
     const pressure = document.querySelector('#pressure')
-    pressure.textContent = `Pressure: ${data.current.pressure} hPa`
+    pressure.textContent = `${data.current.pressure} hPa`
 
     const visibility = document.querySelector('#visibility')
-    visibility.textContent = ` Visibility: ${data.current.visibility} meters`
+    visibility.textContent = `${data.current.visibility} meters`
 
     const uvIndex = document.querySelector('#uv-index')
-    uvIndex.textContent = `UV Index: ${data.current.uvi}`
+    uvIndex.textContent = `${data.current.uvi}`
 
 }
 
@@ -144,7 +144,7 @@ function renderForecast(data) {
     while (container.firstChild) {
         container.removeChild(container.lastChild)
     }
-    let day = getDay() + 1
+    let day = getDay()
     for (let i = 1; i <= 7; i++) {
         let cell = document.createElement('div')
         cell.classList.add('daily-cell')
