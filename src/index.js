@@ -3,7 +3,7 @@ import {renderData} from './render'
 
 //default init
 let units = "imperial"
-let cityname = ""
+let cityname = "New York"
 
 const changeTemp = document.querySelector('.temp-measurement')
 changeTemp.addEventListener('click', () => {
@@ -147,7 +147,7 @@ el.addEventListener('mousedown', (e) => {
 });
 
 //init page
-getLocation("New York", units)
+getLocation(cityname, units)
 
 
 export {
