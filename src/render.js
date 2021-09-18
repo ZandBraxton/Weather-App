@@ -34,6 +34,13 @@ function renderHeaderData(data) {
 
     const minTemp = document.querySelector('#minTemp')
     minTemp.textContent = `L:${Math.round(data.daily[0].temp['min'])}\xB0`
+
+    const currentIcon = document.querySelector('.current-icon')
+    currentIcon.src = `https://openweathermap.org/img/wn/${data.current.weather[0].icon}@4x.png`
+    currentIcon.alt = `${data.current.weather[0].description}`
+
+    const currentDesc = document.querySelector('.current-desc')
+    currentDesc.textContent = `Today: ${data.current.weather[0].description} currently.`
 }
 
 function renderMainData(data, units) {

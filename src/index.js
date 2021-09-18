@@ -128,20 +128,9 @@ function appendDailyTemp(data, i, cell) {
     cell.appendChild(tempContainer)
 }
 
-export {
-    getHour,
-    getDay,
-    getDayName,
-    appendHourlyIcon,
-    appendHourlyTemp,
-    appendDailyIcon,
-    appendDailyTemp
-}
-
+//dragging function
 const el = document.querySelector('.weather-hourly')
-
 let x = 0, left = 0;
-
 let draggingFunction = (e) => {
     document.addEventListener('mouseup', () => {
         document.removeEventListener("mousemove", draggingFunction);
@@ -156,8 +145,19 @@ el.addEventListener('mousedown', (e) => {
     document.addEventListener('mousemove', draggingFunction);
 });
 
+//init page
 getLocation(cityname, units).catch(err => {
 console.log(err)
 })
 
+
+export {
+    getHour,
+    getDay,
+    getDayName,
+    appendHourlyIcon,
+    appendHourlyTemp,
+    appendDailyIcon,
+    appendDailyTemp
+}
 //   https://api.openweathermap.org/data/2.5/onecall?lat=29.4241&lon=-98.4936&exclude=minutely&units=imperial&appid=8da6e4702fef427379c1ed0387c3fc89
