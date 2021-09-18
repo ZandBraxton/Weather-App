@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Weather App</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <nav>
+            <form class="search" autocomplete="off">
+                <input type="text" placeholder="Enter a City" value="" required>
+                <span class="validity">Please enter a valid city!</span>
+                <button id="submit" type="submit">Search</button>
+            </form>
+            <button class="temp-measurement">F&deg</button>
+         </nav>
+         <div class="weather-container">
+            <div class="weather-header">
+                <p class="name"></p>
+                <p class="current-weather"></p>
+                <p class="temp"></p>
+                <div class=min-max-container>
+                    <p id="maxTemp" class="min-max"></p>
+                    <p id="minTemp" class="min-max"></p>
+                </div>
+            </div>
+            <img class="current-icon">
+            <p class="current-desc"></p>
+            <div class="weather-stats">
+                <p class="weather-info">SUNRISE: <span id="sunrise"></span></p>
+                <p class="weather-info">SUNSET: <span id="sunset"></span></p>
+                <p class="weather-info">HUMIDITY: <span id="humidity"></span></p>
+                <p class="weather-info">FEELS LIKE: <span id="feels-like"></span></p>
+                <p class="weather-info">CHANCE OF RAIN: <span id="pop"></span></p>
+                <p class="weather-info">PERCIPITATION: <span id="percipitation"></span></p>
+                <p class="weather-info">WIND: <span id="windspeed"></span></p>
+                <p class="weather-info">PRESSURE: <span id="pressure"></span></p>
+                <p class="weather-info">VISIBILITY: <span id="visibility"></span></p>
+                <p class="weather-info">UV INDEX: <span id="uv-index"></span></p>
+            </div>
+        </div>
+        <div class="weather-hourly"></div>
+        <div class="weather-daily"></div>
+        <script src="main.js"></script>
+    </body>
+</html>
